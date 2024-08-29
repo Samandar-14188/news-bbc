@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.custom-title:hover {
+  text-decoration: underline;
+}
+.custom-paragraf:hover {
+  text-decoration: underline;
+}
+.context-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+}
+.form-container {
+  width: 600px;
+}
+.auth-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+@media only screen and (max-width: 600px) {
+  .scrollable-container {
+    height: 300px; 
+  }
+  .context-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}
