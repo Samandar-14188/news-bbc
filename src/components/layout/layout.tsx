@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Layout, Menu, theme, Skeleton, Card } from "antd";
 import useClient from "../../server";
 import { Typography } from "antd";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 interface Article {
@@ -41,8 +40,7 @@ const items = header.map(({ key, label, path }) => ({
 const LayoutComponents: React.FC<DataUrlProps> = ({ dataUrl }) => {
   const [selectedCard, setselectCard] = useState<Article | null>(null);
   const { Title, Paragraph } = Typography;
-  const url = dataUrl;
-  const { loading, error, data } = useClient<ApiResponse>(url);
+  const { loading, error, data } = useClient<ApiResponse>(dataUrl);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -151,7 +149,7 @@ const LayoutComponents: React.FC<DataUrlProps> = ({ dataUrl }) => {
         </div>
       </Content>
       <Footer style={{ textAlign: "center" }}>
-        Portfolio{new Date().getFullYear()} Nabiyev Samandar
+        Portfolio {new Date().getFullYear()} Nabiyev Samandar
       </Footer>
     </Layout>
   );

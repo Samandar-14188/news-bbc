@@ -1,11 +1,11 @@
-import React from 'react';
-import { Menu } from 'antd';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Menu } from "antd";
+import { Link } from "react-router-dom";
 
 const headerItems = [
-  { key: 'home', label: 'Home', path: '/' },
-  { key: 'sport', label: 'Sport', path: '/sport' },
-  { key: 'multimedia', label: 'Multimedia', path: '/multimedia' },
+  { key: "home", label: "Home", path: "/" },
+  { key: "sport", label: "Sport", path: "/sport" },
+  { key: "multimedia", label: "Multimedia", path: "/multimedia" },
 ];
 
 const HeaderComponent: React.FC = () => {
@@ -13,7 +13,7 @@ const HeaderComponent: React.FC = () => {
     <Menu
       theme="dark"
       mode="horizontal"
-      defaultSelectedKeys={['home']}
+      defaultSelectedKeys={["home"]}
       style={{ flex: 1, minWidth: 0 }}
     >
       {headerItems.map(({ key, label, path }) => (

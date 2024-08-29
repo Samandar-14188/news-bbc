@@ -3,9 +3,15 @@ import Multimedia from "./page/MultiMedia/Multimedia";
 import Sport from "./page/SportNews/Sport";
 import Home from "./page/HomeNews/Home";
 import Auth from "./page/auth/auth";
+import ErrorBoundary from "./components/ErrorBoundary"; // Ensure ErrorBoundary is correctly imported
+
 const routes = createBrowserRouter([
   {
     path: "/",
+    element: <Auth />,
+  },
+  {
+    path: "/home",
     element: <Home />,
   },
   {
@@ -16,12 +22,12 @@ const routes = createBrowserRouter([
     path: "/sport",
     element: <Sport />,
   },
-  {
-    path: "/auth",
-    element: <Auth />,
-  },
 ]);
 
 export default function App() {
-  return <RouterProvider router={routes}></RouterProvider>;
+  return (
+    <ErrorBoundary>
+      <RouterProvider router={routes} />
+    </ErrorBoundary>
+  );
 }

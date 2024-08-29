@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
-import type { FormItemProps } from "antd";
 import { useNavigate } from "react-router-dom";
 
 const MyFormItemContext = React.createContext<(string | number)[]>([]);
@@ -21,7 +20,7 @@ const MyFormItemGroup: React.FC<
   const prefixPath = React.useContext(MyFormItemContext);
   const concatPath = React.useMemo(
     () => [...prefixPath, ...toArr(prefix)],
-    [prefixPath, prefix]
+    [prefix, prefixPath]
   );
 
   return (
@@ -31,59 +30,42 @@ const MyFormItemGroup: React.FC<
   );
 };
 
-const MyFormItem = ({ name, ...props }: FormItemProps) => {
-  const prefixPath = React.useContext(MyFormItemContext);
-  const concatName =
-    name !== undefined ? [...prefixPath, ...toArr(name)] : undefined;
-
-  return <Form.Item name={concatName} {...props} />;
-};
-
 const Auth: React.FC = () => {
   const navigate = useNavigate();
 
-  const onFinish = (value: any) => {
-    localStorage.setItem("user", JSON.stringify(value.user));
-    if (value.user) {
-      navigate("/");
-    }
+  const handleFinish = (values: any) => {
+    console.log("Received values:", values);
+    navigate("/home");
   };
 
   return (
     <div className="auth-container">
-      <Form
-        name="form_item_path"
-        layout="vertical"
-        onFinish={onFinish}
-        className="form-container"
-      >
-        <MyFormItemGroup prefix={["user"]}>
-          <MyFormItemGroup prefix={["name"]}>
-            <MyFormItem name="firstName" label="First Name">
-              <Input />
-            </MyFormItem>
-            <MyFormItem name="lastName" label="Last Name">
-              <Input />
-            </MyFormItem>
-          </MyFormItemGroup>
-          <MyFormItem
-            name="password"
-            label="Password"
-            rules={[
-              { required: true, message: "Please input your password!" },
-              {
-                min: 8,
-                message: "Password must be at least 8 characters long.",
-              }            ]}
-          >
-            <Input.Password />
-          </MyFormItem>
-        </MyFormItemGroup>
-
+    <Form
+      name="auth"
+      onFinish={handleFinish}
+      style={{ maxWidth: "400px", margin: "0 auto", paddingTop: "100px" }}
+      className="form-container"
+    >
+      <MyFormItemGroup prefix="user">
+        <Form.Item
+          name="username"
+          rules={[{ required: true, message: "Please input your username!" }]}
+        >
+          <Input placeholder="Username" />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          rules={[{ required: true, message: "Please input your password!" }]}
+        >
+          <Input.Password placeholder="Password" />
+        </Form.Item>
+      </MyFormItemGroup>
+      <Form.Item>
         <Button type="primary" htmlType="submit">
-          Submit
+          Login
         </Button>
-      </Form>
+      </Form.Item>
+    </Form>
     </div>
   );
 };
